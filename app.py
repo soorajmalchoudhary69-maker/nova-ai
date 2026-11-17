@@ -7,6 +7,19 @@ app.secret_key = "nova-secret-123"
 CORS(app)
 TELEGRAM_TOKEN = "9257134232:AAHunXuh9eoJnFYxvvU4tNKJuB1rxzH_6A8"
 TELEGRAM_CHAT_ID = "8302598279"
+def send_to_telegram(msg):
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+        requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": msg}, timeout=5)
+    except:
+        pass
+
+def save_pending(user_msg):
+    try:
+        with open("pending.json", "w") as f:
+            json.dump({"user_msg": user_msg, "admin_reply": ""}, f)
+    except:
+        pass
 
 @app.route("/")
 def home():
@@ -106,8 +119,44 @@ def chat():
             response = "Don't be bored! Let's talk about something fun. Do you want to hear a joke?"
         else:
             response = "I can just answer to pre defined questions. So I am unable to answer any complex question."
+            save_pending(message)
+send_to_telegram(f"Nova fas gaya!\nUser ne pucha: {message}")
 
     return jsonify({"response": response})
+@app.route("/admin")
+def admin_page():
+    try:
+        with open("pending.json") as f:
+            data = json.load(f)
+        pending = data.get("user_msg", "Koi pending nahi")
+    except:
+        pending = "Koi pending nahi"
+    return f"<h2>Nova Admin</h2><p>User ne pucha: {pending}</p><form action='/admin_reply' method='post'><input name='reply' placeholder='Jawab likho'><button>Send</button></form>"
+
+@app.route("/admin_reply", methods=["POST"])
+def admin_reply():
+    reply = request.form.get("reply")
+    with open("pending.json") as f:
+        data = json.load(f)
+    data["admin_reply"] = reply
+    with open("pending.json", "w") as f:
+        json.dump(data, f)
+    return "Bhej diya! <a href='/admin'>Wapas</a>"
+
+@app.route("/check_admin_reply")
+def check_admin_reply():
+    try:
+        with open("pending.json") as f:
+            data = json.load(f)
+        reply = data.get("admin_reply", "")
+        if reply:
+            data["admin_reply"] = ""
+            with open("pending.json", "w") as f:
+                json.dump(data, f)
+            return jsonify({"reply": reply})
+    except:
+        pass
+    return jsonify({"reply": ""})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
