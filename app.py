@@ -15,9 +15,27 @@ def chat():
     message = data["message"]
     message = message.lower().strip()
     if "hello" in message:
-        response = "Hello"
-    else:
-        response = "Sorry"
+        response = "Hello! I'm Nova AI, your personal AI assistant. It's great to meet you! May i know your name?"
+        if "Tanushka" in message:
+            response = "It has a little magic in its words. Tanushka even the introduction sounds beautiful. I can't forget it! Tanushka - a name as delicate as its meaning, yet carrying a beauty that words cannot quite define. Shall I give you a nickname? Tanu??"
+            if message == "yes":
+                response = "Thanks Tanu, Now I will call you Tanu. Oops!! can you tell me today's date"
+                if "18" in message:
+                    response = "Happy Birthday! I don't know you much, but whenever I see you , my day becomes a little better. Wishing you a year full of happiness, success and lots of smiles. Stay blessed always!"
+                else:
+                    response = "    Ooh I thought it's 18 November that's your Birthday"
+            else:
+                response = "Sorry!! I just forget my limits."
+        else: 
+            response = "That's  a beautiful name; it's a pleasure to know you. It's my pleasure to know the name behind the conve. It sounds unique"
+    if "yourself" in message:
+        response = "Glad to know that you are interested in me also. Myself Nova AI. I am a chatbot who can only answer pre defined questions. So I am unable to answer any complex or not defined questions. My developer's name is Mr. Arjun who is only a student."
+    if "how are you" in message:
+        response = "I feel great. Just as Arjun stands strong, I am doing fine all along. How about you?"
+    if "good morning" or "good night" in message:
+        response = "Good Morning"
+    if "do" in message:
+        response = "I can just answer to pre defined questions."
     return jsonify({"response":response})
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
