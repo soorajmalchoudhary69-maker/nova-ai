@@ -1,10 +1,12 @@
-import os
+import os, json, datetime, requests
 from flask import Flask, request, jsonify, send_from_directory, session
 from flask_cors import CORS
 
 app = Flask(__name__)
 app.secret_key = "nova-secret-123"
 CORS(app)
+TELEGRAM_TOKEN = "9257134232:AAHunXuh9eoJnFYxvvU4tNKJuB1rxzH_6A8"
+TELEGRAM_CHAT_ID = "8302598279"
 
 @app.route("/")
 def home():
@@ -19,6 +21,19 @@ def chat():
     data = request.get_json()
     message = data["message"]
     message = message.lower().strip()
+    # --- YAHAN HONA CHAHIYE - SABSE UPAR ---
+    if "i am fine" in message or "i am good" in message:
+        return jsonify({"response": "That's great to hear! What are you doing today?"})
+
+    #if "how are you" in message:
+        #return jsonify({"response": "I feel great. How about you?"})
+# --- YAHAN HONA CHAHIYE - SABSE UPAR ---
+    #if "i am fine" in message or "i am good" in message:
+        #return jsonify({"response": "That's great to hear! What are you doing today?"})
+
+    #if "how are you" in message:
+        #return jsonify({"response": "I feel great. How about you?"})
+
 
     # STEP 1: Hello -> Greeting + Naam pucho
     if message in ["hello", "hii", "hi", "hey", "hlo", "namaste"]:
@@ -33,7 +48,7 @@ def chat():
         session["step"] = "ask_intro"
 
         if "tanushka" in message:
-            response = "It has a little magic in its words. Tanushka, even the introduction sounds beautiful. Can I introduce myself?"
+            response = "It has a little magic in its words. Tanushka even the introduction sounds beautiful. I can't forget it! Tanushka - a name as delicate as its meaning, yet carrying a beauty that words cannot quite define. Shall I give you a nickname? Tanu??"
         else:
             response = f"That's a beautiful name, {name.title()}! It's a pleasure to know you. Can I introduce myself?"
 
@@ -41,10 +56,10 @@ def chat():
     elif session.get("step") == "ask_intro" and message in ["yes", "ha", "haan", "yeah", "sure", "ok"]:
         session["step"] = "ask_nickname"
         if "tanushka" in session.get("user_name", ""):
-            response = "Glad to know that you are interested in me also. Myself Nova AI. I am a personal AI assistant made by Sooraj. Can I give you a nickname Tanu?"
+            response = "Glad to know that you are interested in me also. Myself Nova AI. I am a personal AI assistant made by Arjun. Can I give you a nickname Tanu?"
         else:
             session["step"] = "normal"
-            response = "Glad to know that you are interested in me also. Myself Nova AI. I am a personal AI assistant made by Sooraj. So, how are you?"
+            response = "Glad to know that you are interested in me also. Myself Nova AI. I am a personal AI assistant made by Arjun. So, how are you?"
 
     # STEP 4: Nickname ke liye Yes -> Date pucho
     elif session.get("step") == "ask_nickname" and message in ["yes", "ha", "haan", "yeah", "sure", "ok"]:
@@ -75,9 +90,9 @@ def chat():
         elif "good evening" in message:
             response = "Good Evening! How was your day?"
         elif "your name" in message or "tumhara naam" in message:
-            response = "My name is Nova AI, made by Sooraj."
+            response = "My name is Nova AI, made by Arjun."
         elif "who made you" in message or "kisne banaya" in message:
-            response = "Sooraj made me."
+            response = "Arjun made me."
         elif "joke" in message:
             response = "Why did the computer go to the doctor? Because it had a virus!"
         elif "thank" in message:
