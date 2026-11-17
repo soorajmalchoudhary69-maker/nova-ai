@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova.ai</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="assistant">
+        <div class="sidebar">
+            <button id="new-chat" onclick="newchat()">+ New Chat</button>
+            <div class="history">Chat History</div>
+            <button id="settings" onclick="settings()">Settings</button>
+        </div>
+        <div class="main">
+            <div class="header">Welcome to Nova.ai</div>
+            <div id="chat"></div>
+            <div class="input">
+                <label>
+                    <input type="text" id="message">
+                    <button id="send" onclick="sendmessage()">Send</button>
+                    </label>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

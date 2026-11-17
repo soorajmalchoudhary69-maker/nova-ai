@@ -1,0 +1,25 @@
+async function sendmessage(){
+    let chat = document.getElementById("chat");
+    let message = document.getElementById("message").value;
+    let box = document.createElement("div");
+    box.innerText = "You: " + message;
+    chat.appendChild(box);
+    document.getElementById("message").value="";
+    try{
+        let response = await fetch("/chat", {method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({message:message})
+        });
+        let data = await response.json()
+        console.log(data.response)
+        let reply = document.createElement("div");
+        reply.innerText = "Nova: " + data.response;
+        chat.appendChild(reply);
+    }
+    catch (error){
+        console.log("Something went wrong: ",error)
+    }
+    
+}
