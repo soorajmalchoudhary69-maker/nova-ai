@@ -120,7 +120,7 @@ def chat():
         else:
             response = "I can just answer to pre defined questions. So I am unable to answer any complex question."
             save_pending(message)
-send_to_telegram(f"Nova fas gaya!\nUser ne pucha: {message}")
+            send_to_telegram(f"Nova fas gaya!\nUser ne pucha: {message}")
 
     return jsonify({"response": response})
 @app.route("/admin")
