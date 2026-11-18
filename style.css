@@ -69,3 +69,10 @@ button{
 #send{
     background-color: #06B6D4;
 }
+#chat div{
+    padding: 10px 14px;
+    margin: 5px 0;
+    border-radius: 12px;
+    max-width: 80%;
+    background: #2a2f45;
+}
