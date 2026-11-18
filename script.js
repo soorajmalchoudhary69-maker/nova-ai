@@ -41,5 +41,5 @@ function newchat(){
     document.getElementById("chat").innerHTML = "";
 }
 function settings(){
-    alert("Settings abhi ban raha hai");
+    alert("This is under process so please wait for next update. Thank You!!");
 }
