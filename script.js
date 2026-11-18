@@ -23,3 +23,23 @@ async function sendmessage(){
     }
     
 }
+// Har 3 sec me check karo Sooraj ne jawab diya ya nahi
+setInterval(async () => {
+    try{
+        let res = await fetch("/check_admin_reply");
+        let data = await res.json();
+        if(data.reply){
+            let chat = document.getElementById("chat");
+            let reply = document.createElement("div");
+            reply.innerText = "Sooraj: " + data.reply;
+            chat.appendChild(reply);
+        }
+    }catch(e){}
+}, 3000);
+
+function newchat(){
+    document.getElementById("chat").innerHTML = "";
+}
+function settings(){
+    alert("Settings abhi ban raha hai");
+}
