@@ -64,7 +64,7 @@ def chat():
             response = "It has a little magic in its words. Tanushka even the introduction sounds beautiful. I can't forget it! Tanushka - a name as delicate as its meaning, yet carrying a beauty that words cannot quite define. Shall I give you a nickname? Tanu??"
         else:
             response = f"That's a beautiful name, {name.title()}! It's a pleasure to know you. Can I introduce myself?"
-
+            return jsonify({"response":response})
     # STEP 3: Introduce myself -> Yes bola to nickname pucho (sirf Tanushka ke liye)
     elif session.get("step") == "ask_intro" and message in ["yes", "ha", "haan", "yeah", "sure", "ok"]:
         session["step"] = "ask_nickname"
@@ -73,7 +73,7 @@ def chat():
         else:
             session["step"] = "normal"
             response = "Glad to know that you are interested in me also. Myself Nova AI. I am a personal AI assistant made by Arjun. So, how are you?"
-
+            return jsonify({"response":response})
     # STEP 4: Nickname ke liye Yes -> Date pucho
     elif session.get("step") == "ask_nickname" and message in ["yes", "ha", "haan", "yeah", "sure", "ok"]:
         session["step"] = "ask_date"
@@ -83,7 +83,7 @@ def chat():
     elif session.get("step") == "ask_nickname" and message in ["no", "nahi", "na"]:
         session["step"] = "normal"
         response = "Okay, no problem! So Tanushka, how are you?"
-
+        return jsonify({"response":response})
     # STEP 5: Date batayi -> 18 hai to Birthday, nahi to Sorry
     elif session.get("step") == "ask_date":
         session["step"] = "normal"
@@ -91,7 +91,7 @@ def chat():
             response = "Happy Birthday! I don't know you much, but whenever I see you, my day becomes a little better. Wishing you a year full of happiness, success and lots of smiles."
         else:
             response = "Ooh I thought it's 18 November that's your Birthday."
-
+            return jsonify({"response":response})
     # STEP 6: Ab normal baatcheet
     else:
         if "how are you" in message or "kaise ho" in message:
