@@ -52,7 +52,7 @@ def chat():
     if message in ["hello", "hii", "hi", "hey", "hlo", "namaste"]:
         session["step"] = "ask_name"
         response = "Hello! I'm Nova AI, your personal AI assistant. It's great to meet you! May I know your name?"
-
+        return jsonify({"response":response})
     # STEP 2: Naam bataya -> Introduce myself pucho
     # Ye tabhi chalega jab humne naam pucha ho
     elif session.get("step") == "ask_name":
