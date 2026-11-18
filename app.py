@@ -122,7 +122,7 @@ def chat():
             save_pending(message)
             send_to_telegram(f"Nova fas gaya!\nUser ne pucha: {message}")
 
-    return jsonify({"response": response})
+      return jsonify({"response": response})
 @app.route("/admin")
 def admin_page():
     try:
